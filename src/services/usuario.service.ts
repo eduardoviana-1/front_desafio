@@ -11,4 +11,8 @@ export const usuarioService = {
     const { data } = await api.post<Usuario>('/usuario', usuario);
     return data;
   },
+
+  async remover(id: string): Promise<void> {
+    await api.delete(`/usuario/${id}`);
+  },
 };
