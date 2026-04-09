@@ -74,27 +74,28 @@ export default function RetiradasPage() {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <PageHeader 
-        title="Retiradas"
-        description="Registro e histórico de movimentações."
-        action={
-          <Button 
-            variant="white"
-            icon={<PlusCircle size={20} />}
-            onClick={() => setShowForm(!showForm)}
-          >
-            {showForm ? 'Cancelar' : 'Nova Retirada'}
-          </Button>
-        }
-      />
+    <div className="flex flex-col h-full -m-8 bg-zinc-100 min-h-screen">
+      <div className="bg-white border-b border-zinc-100">
+        <PageHeader 
+          title="Retiradas"
+          description="Registro e histórico de movimentações de equipamentos."
+          action={
+            <Button 
+              variant={showForm ? 'white' : 'primary'}
+              icon={<PlusCircle size={20} />}
+              onClick={() => setShowForm(!showForm)}
+            >
+              {showForm ? 'Cancelar' : 'Nova Retirada'}
+            </Button>
+          }
+        />
+      </div>
 
-      <div className="max-w-6xl mx-auto w-full px-8 space-y-8 pb-12">
+      <div className="max-w-5xl mx-auto w-full px-12 py-10 space-y-8 pb-12">
         {showForm && (
           <Card 
-            variant="overlap"
             title="Registrar Nova Retirada"
-            icon={<ArrowLeftRight className="text-orange-600" size={24} />}
+            icon={<ArrowLeftRight className="text-emerald-700" size={24} />}
           >
             <form onSubmit={handleRealizarRetirada} className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Select 
@@ -136,7 +137,7 @@ export default function RetiradasPage() {
               />
 
               <div className="md:col-span-3 flex justify-end mt-4">
-                <Button variant="secondary" type="submit" isLoading={isSubmitting}>
+                <Button type="submit" isLoading={isSubmitting}>
                   Confirmar Retirada
                 </Button>
               </div>
@@ -144,18 +145,18 @@ export default function RetiradasPage() {
           </Card>
         )}
 
-        <div className={`bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden ${!showForm ? '-mt-8 shadow-xl' : ''}`}>
-          <div className="px-6 py-4 border-b border-zinc-200 bg-zinc-50 flex items-center gap-2">
+        <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-zinc-200 bg-zinc-50/50 flex items-center gap-2">
             <History size={18} className="text-zinc-500" />
-            <h3 className="text-sm font-bold text-zinc-700 uppercase tracking-wider">Histórico de Transações</h3>
+            <h3 className="text-[11px] font-bold text-zinc-500 uppercase tracking-widest">Histórico de Transações</h3>
           </div>
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-white border-b border-zinc-200">
-                <th className="px-6 py-4 text-[10px] font-bold text-zinc-400 uppercase">Colaborador</th>
-                <th className="px-6 py-4 text-[10px] font-bold text-zinc-400 uppercase">Item</th>
-                <th className="px-6 py-4 text-[10px] font-bold text-zinc-400 uppercase">Qtd.</th>
-                <th className="px-6 py-4 text-[10px] font-bold text-zinc-400 uppercase text-right">Realizado em</th>
+                <th className="px-6 py-4 text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Colaborador</th>
+                <th className="px-6 py-4 text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Item</th>
+                <th className="px-6 py-4 text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Qtd.</th>
+                <th className="px-6 py-4 text-[11px] font-bold text-zinc-400 uppercase tracking-wider text-right">Realizado em</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-100">
@@ -170,17 +171,17 @@ export default function RetiradasPage() {
               ) : (
                 retiradas.map((retirada) => (
                   <tr key={retirada.id} className="hover:bg-zinc-50/50 transition-colors">
-                    <td className="px-6 py-4 font-bold text-zinc-900 text-sm">
-                      {retirada.usuario?.nomeCompleto || 'Usuário Removido'}
+                    <td className="px-6 py-4">
+                      <span className="font-bold text-zinc-900 text-sm">{retirada.usuario?.nomeCompleto || 'Usuário Removido'}</span>
                     </td>
-                    <td className="px-6 py-4 text-zinc-600 text-sm italic">
+                    <td className="px-6 py-4 text-zinc-600 text-sm font-medium">
                       {retirada.equipamento?.nome || 'Equipamento Removido'}
                     </td>
                     <td className="px-6 py-4">
-                      <span className="font-mono font-bold text-orange-600">-{retirada.quantidade.toString().padStart(2, '0')}</span>
+                      <span className="font-mono font-bold text-emerald-700">-{retirada.quantidade.toString().padStart(2, '0')}</span>
                     </td>
-                    <td className="px-6 py-4 text-right text-zinc-500 text-xs">
-                      {new Date(retirada.realizadoEm).toLocaleString('pt-BR')}
+                    <td className="px-6 py-4 text-right text-zinc-500 text-[11px] font-medium uppercase">
+                      {new Date(retirada.realizadoEm).toLocaleDateString('pt-BR')} {new Date(retirada.realizadoEm).toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'})}
                     </td>
                   </tr>
                 ))

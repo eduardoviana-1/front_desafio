@@ -18,7 +18,7 @@ export function Input({ label, icon, className = '', ...props }: InputProps) {
         <input
           className={`
             w-full py-2.5 border border-zinc-200 rounded-lg 
-            focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+            focus:ring-2 focus:ring-emerald-800 focus:border-transparent 
             outline-none transition-all text-zinc-900 placeholder:text-zinc-500
             ${icon ? 'pl-10' : 'px-4'}
             ${className}

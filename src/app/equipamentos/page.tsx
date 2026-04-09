@@ -56,32 +56,33 @@ export default function EquipamentosPage() {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <PageHeader 
-        title="Inventário"
-        description="Controle de saldo e entrada de materiais."
-        action={
-          <Button 
-            variant="white"
-            icon={<PackagePlus size={20} />}
-            onClick={() => setShowForm(!showForm)}
-          >
-            {showForm ? 'Cancelar' : 'Registrar Entrada'}
-          </Button>
-        }
-      />
+    <div className="flex flex-col h-full -m-8 bg-zinc-100 min-h-screen">
+      <div className="bg-white border-b border-zinc-100">
+        <PageHeader 
+          title="Inventário"
+          description="Controle de saldo e entrada de materiais no estoque."
+          action={
+            <Button 
+              variant={showForm ? 'white' : 'primary'}
+              icon={<PackagePlus size={20} />}
+              onClick={() => setShowForm(!showForm)}
+            >
+              {showForm ? 'Cancelar' : 'Registrar Entrada'}
+            </Button>
+          }
+        />
+      </div>
 
-      <div className="max-w-6xl mx-auto w-full px-8 space-y-8 pb-12">
+      <div className="max-w-5xl mx-auto w-full px-12 py-10 space-y-8 pb-12">
         {showForm && (
           <Card 
-            variant="overlap"
             title="Entrada de Equipamento"
-            icon={<PackagePlus className="text-blue-600" size={24} />}
+            icon={<PackagePlus className="text-emerald-700" size={24} />}
           >
             <form onSubmit={handleEntrada} className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Input 
                 label="Nome do Equipamento"
-                placeholder="Ex: Caminhão Coletor, Notebook..."
+                placeholder="Equipamento"
                 icon={<Search size={18} />}
                 required
                 value={novaEntrada.nome}
@@ -107,13 +108,13 @@ export default function EquipamentosPage() {
           </Card>
         )}
 
-        <div className={`bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden ${!showForm ? '-mt-8 shadow-xl' : ''}`}>
+        <div className="bg-white rounded-xl border border-zinc-200 shadow-sm overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-zinc-50 border-b border-zinc-200">
-                <th className="px-6 py-4 text-xs font-bold text-zinc-500 uppercase tracking-wider">Equipamento</th>
-                <th className="px-6 py-4 text-xs font-bold text-zinc-500 uppercase tracking-wider">Saldo</th>
-                <th className="px-6 py-4 text-xs font-bold text-zinc-500 uppercase tracking-wider text-right">Status</th>
+              <tr className="bg-zinc-50/50 border-b border-zinc-200">
+                <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-wider">Equipamento</th>
+                <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-wider">Saldo Atual</th>
+                <th className="px-6 py-4 text-[11px] font-bold text-zinc-500 uppercase tracking-wider text-right">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-100">
@@ -130,17 +131,17 @@ export default function EquipamentosPage() {
                   <tr key={item.id} className="hover:bg-zinc-50/50 transition-colors">
                     <td className="px-6 py-4 font-bold text-zinc-900">{item.nome}</td>
                     <td className="px-6 py-4">
-                      <span className={`text-lg font-mono font-bold ${item.quantidadeEstoque === 0 ? 'text-red-600' : 'text-zinc-900'}`}>
+                      <span className={`text-lg font-mono font-bold ${item.quantidadeEstoque === 0 ? 'text-rose-600' : 'text-zinc-900'}`}>
                         {item.quantidadeEstoque.toString().padStart(2, '0')}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
                       {item.quantidadeEstoque === 0 ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-800 uppercase">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-800 uppercase border border-rose-100">
                           <AlertTriangle size={10} /> Esgotado
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 uppercase">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 uppercase border border-emerald-100">
                           <CheckCircle2 size={10} /> Disponível
                         </span>
                       )}

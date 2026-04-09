@@ -21,11 +21,13 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-zinc-900 text-white flex flex-col h-screen fixed left-0 top-0 border-r border-zinc-800">
+    <aside className="w-64 bg-white border-r border-zinc-200 flex flex-col h-screen fixed left-0 top-0">
       <div className="p-6">
-        <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-          <Package className="text-blue-500" />
-          Gestão de Estoque
+        <h1 className="text-xl font-bold tracking-tight text-zinc-900 flex items-center gap-2.5">
+          <div className="bg-emerald-800 p-1.5 rounded-lg shadow-lg shadow-emerald-900/10">
+            <Package size={20} className="text-white" />
+          </div>
+          Gestão
         </h1>
       </div>
 
@@ -38,21 +40,21 @@ export default function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                 isActive 
-                  ? 'bg-blue-600 text-white' 
-                  : 'text-zinc-400 hover:bg-zinc-800 hover:text-white'
+                  ? 'bg-emerald-50 text-emerald-800 font-semibold border border-emerald-100/50' 
+                  : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 font-medium'
               }`}
             >
-              <item.icon size={20} />
-              <span className="font-medium text-sm">{item.name}</span>
+              <item.icon size={20} className={isActive ? 'text-emerald-700' : ''} />
+              <span className="text-sm">{item.name}</span>
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-4 border-t border-zinc-800">
-        <button className="flex items-center gap-3 px-4 py-3 w-full text-zinc-400 hover:bg-zinc-800 hover:text-white rounded-lg transition-colors">
+      <div className="p-4 border-t border-zinc-100">
+        <button className="flex items-center gap-3 px-4 py-3 w-full text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 rounded-lg transition-colors font-medium">
           <Settings size={20} />
-          <span className="font-medium text-sm">Configurações</span>
+          <span className="text-sm">Configurações</span>
         </button>
       </div>
     </aside>
